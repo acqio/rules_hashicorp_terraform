@@ -1,0 +1,8 @@
+load("@rules_hashicorp_terraform//terraform:defs.bzl", "tf_module")
+
+tf_module(
+    name = "foo",
+    srcs = glob(["**/*.tf"]),
+    data = glob(["**/*"]),
+    visibility = ["//visibility:public"],
+)

@@ -1,0 +1,14 @@
+# Bazel
+bazel-bin
+bazel-genfiles
+bazel-out
+bazel-rules_hashicorp_terraform
+bazel-testlogs
+bazel-repo
+
+# Terraform
+*.tfvars
+*.terraform
+*.backup
+*.tfstate.*
+terraform.state.d

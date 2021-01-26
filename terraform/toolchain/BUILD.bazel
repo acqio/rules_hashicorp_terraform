@@ -1,0 +1,41 @@
+package(default_visibility = ["//visibility:private"])
+
+filegroup(
+    name = "all_files",
+    testonly = True,
+    srcs = glob(["**"]),
+    visibility = ["//visibility:public"],
+)
+
+toolchain_type(
+    name = "toolchain_type",
+    visibility = ["//visibility:public"],
+)
+
+toolchain(
+    name = "terraform_linux",
+    exec_compatible_with = [
+        "@bazel_tools//platforms:linux",
+        "@bazel_tools//platforms:x86_64",
+    ],
+    target_compatible_with = [
+        "@bazel_tools//platforms:linux",
+        "@bazel_tools//platforms:x86_64",
+    ],
+    toolchain = "@terraform//:terraform_toolchain",
+    toolchain_type = "@rules_hashicorp_terraform//terraform/toolchain:toolchain_type",
+)
+
+toolchain(
+    name = "terraform_osx",
+    exec_compatible_with = [
+        "@bazel_tools//platforms:osx",
+        "@bazel_tools//platforms:x86_64",
+    ],
+    target_compatible_with = [
+        "@bazel_tools//platforms:osx",
+        "@bazel_tools//platforms:x86_64",
+    ],
+    toolchain = "@terraform//:terraform_toolchain",
+    toolchain_type = "@rules_hashicorp_terraform//terraform/toolchain:toolchain_type",
+)

@@ -1,0 +1,27 @@
+load("@rules_hashicorp_terraform//terraform:defs.bzl", "tf_main", "tf_test", "tf_workspace")
+
+tf_main(
+    name = "main",
+    srcs = glob([
+        "main/**/*.tf",
+        "main/**/*.tf.json",
+    ]),
+    data = glob(["main/**/*"]),
+    modules = [
+        "//examples/modules/foo",
+    ],
+)
+
+tf_test(
+    name = "test",
+    ignore_warning = True,
+    main = ":main",
+)
+
+tf_workspace(
+    name = "dev",
+    main = ":main",
+    preserve_state = True,
+    var_file = "main/vars.tfvars",
+    vars = {"foo": "{STABLE_DATETIME}"},
+)
