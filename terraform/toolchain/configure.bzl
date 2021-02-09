@@ -2,7 +2,7 @@ load("@bazel_skylib//lib:paths.bzl", "paths")
 load("@bazel_skylib//lib:versions.bzl", "versions")
 
 bazel_minimal_version = "3.3.0"
-terraform_minimal_version = "0.13.0"
+terraform_minimal_version = "0.14.0"
 
 toolchains = {
     "linux": {
@@ -11,8 +11,8 @@ toolchains = {
             "toolchain_name": "terraform_linux",
             "arch": "amd64",
             "host": "linux",
-            "version": "0.13.6",
-            "sha": "55f2db00b05675026be9c898bdd3e8230ff0c5c78dd12d743ca38032092abfc9",
+            "version": "0.14.0",
+            "sha": "07fd7173f7a360ad5e4d5ea5035670cf426cf7a08d0486bc0fe7c9d76b447722",
         },
         "jq": {
             "name": "jq",
@@ -27,8 +27,8 @@ toolchains = {
             "toolchain_name": "terraform_osx",
             "arch": "amd64",
             "host": "darwin",
-            "version": "0.13.6",
-            "sha": "cbb76aed9c01a8c0fbee4e3a10112ab7836440fa63d93414a1dc45ef59bc0ea2",
+            "version": "0.14.0",
+            "sha": "126e1c9e058f12c247a194db5a9567e59ec755cbc0211cd5d58c8b7d37412b2c",
         },
         "jq": {
             "name": "jq",
@@ -56,11 +56,12 @@ provider_installation {
 }
 """
 
-def _check_version(platform, minimal_version, version):
+def _check_version(tool, minimal_version, version):
     if not versions.is_at_least(minimal_version, version):
-        fail("""{0} versions do not match.
+        fail(
+            """{0} versions do not match.
 Expected: >= {1}
-Atual: {2}""".format(platform, minimal_version, version),
+Atual: {2}""".format(tool, minimal_version, version),
         )
     return
 
@@ -163,7 +164,7 @@ def _impl(rctx):
     settings_symlink_path = paths.join(str(rctx.path(rctx.attr.name).dirname), "settings")
 
     tf_cli_filename = "terraform.sh"
-    tf_plugins_dir = paths.join(settings_symlink_path, ".terraform/plugins")
+    tf_providers_dir = paths.join(settings_symlink_path, ".terraform/providers")
     tf_rc_filename = ".terraformrc"
     tf_tool_path = str(rctx.path("terraform"))
 
@@ -174,7 +175,7 @@ def _impl(rctx):
             "%{JQ_TOOL_TARGET}": "@{0}//:{1}".format(rctx.name, "jq"),
             "%{TF_SCRIPT_NAME}": tf_cli_filename,
             "%{TF_RC_FILENAME}": tf_rc_filename,
-            "%{TF_PLUGIN_DIR}": tf_plugins_dir,
+            "%{TF_PROVIDERS_DIR}": tf_providers_dir,
             "%{TF_RC_TARGET}": "@{0}//:{1}".format(rctx.name, tf_rc_filename),
             "%{TF_TOOL_PATH}": tf_tool_path,
             "%{TF_TOOL_TARGET}": "@{0}//:{1}".format(rctx.name, "terraform"),
@@ -184,7 +185,7 @@ def _impl(rctx):
 
     _get_terraform(rctx, tf_toolchain, tf_cli_filename, tf_tool_path)
     _get_jq(rctx, jq_toolchain)
-    _tf_init(rctx, settings_path, settings_symlink_path, tf_plugins_dir, tf_tool_path, tf_rc_filename)
+    _tf_init(rctx, settings_path, settings_symlink_path, tf_providers_dir, tf_tool_path, tf_rc_filename)
 
 tf_configure = repository_rule(
     implementation = _impl,

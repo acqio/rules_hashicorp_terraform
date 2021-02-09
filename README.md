@@ -51,8 +51,6 @@ This file `settings.tf` or `settgins.tf.json` file at the root of your repositor
 
 Its purpose is to declare which minimum version of Terraform is compatible with its HCL code as well as which Providers (plugins) should be available for use.
 
-The result of running this rule is the providers available in a directory named `.terraform` at the root of your repository. Therefore it is recommended to add this directory to your `.gitignore`.
-
 E.g.
 ```hcl
 terraform {
@@ -67,6 +65,12 @@ terraform {
     }
 }
 ```
+A [terraform configuration](https://www.terraform.io/docs/cli/config/config-file.html) file is also created at the end of the tool set configuration.
+
+This file specifies the [filesystem mirror](https://www.terraform.io/docs/cli/config/config-file.html#explicit-installation-method-configuration) the underlying providers are downloaded.
+
+From this configuration it is possible to declare all providers and reuse in the rules.
+
 NOTE: Just consider declaring in this file settings referring to Terraform Provider as the minimum required version and providers (plugins) to use. Any other configuration may impact the correct functioning of this project and its rules.
 
 ## Simple usage

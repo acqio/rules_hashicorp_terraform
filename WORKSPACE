@@ -30,5 +30,4 @@ tf_dependencies()
 tf_toolchains(
     quiet = False,
     settings = "//:settings.tf",
-    # tf_log = "TRACE"
 )

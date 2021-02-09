@@ -8,7 +8,7 @@ def _impl(ctx):
     toolchain_info = ctx.toolchains[common.tf_toolchain].info
     tf_main = ctx.attr.main[TerraformMain]
 
-    tf_plugins_dir = toolchain_info.tf_plugins_dir
+    tf_providers_dir = toolchain_info.tf_providers_dir
     tf_workdir = tf_main.workdir
     tf_ws_name = ctx.attr.name
 
@@ -19,7 +19,7 @@ def _impl(ctx):
     tpl_sub = {
         "%{tf_cli}": terraform_cli.path,
         "%{tf_config}": terraformrc.path,
-        "%{tf_plugins_dir}": "-plugin-dir %s" % tf_plugins_dir,
+        "%{tf_providers_dir}": "-plugin-dir %s" % tf_providers_dir,
         "%{tf_workdir}": tf_workdir,
         "%{tf_ws_name}": tf_ws_name,
     }

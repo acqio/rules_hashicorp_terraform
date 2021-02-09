@@ -14,7 +14,7 @@ tf_action=${1:-"graph"}
 tf_cli="%{tf_cli}"
 tf_workdir="%{tf_workdir}"
 
-${tf_cli} init -get=true -upgrade=false -verify-plugins=false %{tf_plugins_dir} ${tf_workdir} 2>&1>/dev/null;
+${tf_cli} init -get=true -upgrade=false -verify-plugins=false %{tf_providers_dir} ${tf_workdir} 2>&1>/dev/null;
 
 export TF_WORKSPACE="%{tf_ws_name}"
 

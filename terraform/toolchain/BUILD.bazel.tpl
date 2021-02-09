@@ -12,7 +12,7 @@ exports_files([
 tf_toolchain(
     name = "terraform_toolchain",
     jq_tool_target = "%{JQ_TOOL_TARGET}",
-    tf_plugins_dir = "%{TF_PLUGIN_DIR}",
+    tf_providers_dir = "%{TF_PROVIDERS_DIR}",
     tf_terraformrc = "%{TF_RC_TARGET}",
     tf_tool_path = "%{TF_TOOL_PATH}",
     tf_tool_target = "%{TF_TOOL_TARGET}",

@@ -5,7 +5,7 @@ def _impl(ctx):
         platform_common.ToolchainInfo(
             info = TerraformToolchainInfo(
                 jq_tool_target = ctx.attr.jq_tool_target,
-                tf_plugins_dir = ctx.attr.tf_plugins_dir,
+                tf_providers_dir = ctx.attr.tf_providers_dir,
                 tf_terraformrc = ctx.attr.tf_terraformrc,
                 tf_tool_path = ctx.attr.tf_tool_path,
                 tf_tool_target = ctx.attr.tf_tool_target,
@@ -25,7 +25,7 @@ tf_toolchain = rule(
             mandatory = True,
             cfg = "host",
         ),
-        "tf_plugins_dir": attr.string(
+        "tf_providers_dir": attr.string(
             mandatory = True,
         ),
         "tf_terraformrc": attr.label(

@@ -2,7 +2,7 @@ TerraformToolchainInfo = provider(
     doc = "Terraform toolchain rule parameters",
     fields = [
         "jq_tool_target",
-        "tf_plugins_dir",
+        "tf_providers_dir",
         "tf_terraformrc",
         "tf_tool_path",
         "tf_tool_target",
