@@ -5,7 +5,7 @@ def _impl(ctx):
     toolchain_info = ctx.toolchains[common.tf_toolchain].info
     tf_main = ctx.attr.main[TerraformMain]
 
-    tf_plugins_dir = toolchain_info.tf_plugins_dir
+    tf_providers_dir = toolchain_info.tf_providers_dir
     tf_workdir = tf_main.workdir
 
     jq_cli = toolchain_info.jq_tool_target.files.to_list()[0]
@@ -13,14 +13,14 @@ def _impl(ctx):
     terraformrc = toolchain_info.tf_terraformrc.files.to_list()[0]
 
     template_substitutions = {
-        "%{ignore_warning}": ".severity==\"error\" {warning}".format(
-            warning = "" if ctx.attr.ignore_warning else "or .severity==\"%{ignore_warning}\"",
+        "%{severity}": ".severity==\"error\" {warning}".format(
+            warning = "" if ctx.attr.ignore_warning else "or .severity==\"warning\"",
         ),
         "%{jq_cli}": jq_cli.path,
         "%{target_name}": ctx.attr.name,
         "%{tf_cli}": terraform_cli.path,
         "%{tf_config}": terraformrc.path,
-        "%{tf_plugins_dir}": "-plugin-dir %s" % tf_plugins_dir,
+        "%{tf_providers_dir}": "-plugin-dir %s" % tf_providers_dir,
         "%{tf_workdir}": tf_workdir,
     }
 

@@ -7,14 +7,17 @@ function help() {
     echo "E.g: bazel run //target:label -- {command}"
 }
 
-export TF_CLI_CONFIG_FILE="%{tf_config}"
 export TF_CLI_ARGS="-no-color"
+export TF_CLI_CONFIG_FILE="%{tf_config}"
 
 tf_action=${1:-"graph"}
 tf_cli="%{tf_cli}"
 tf_workdir="%{tf_workdir}"
 
-${tf_cli} init -get=true -upgrade=false -verify-plugins=false %{tf_providers_dir} ${tf_workdir} 2>&1>/dev/null;
+${tf_cli} init \
+    -get=true -upgrade=false \
+    -verify-plugins=false %{tf_providers_dir} \
+    ${tf_workdir} 2>&1>/dev/null;
 
 export TF_WORKSPACE="%{tf_ws_name}"
 
