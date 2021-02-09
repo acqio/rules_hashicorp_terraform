@@ -30,8 +30,8 @@ tf_toolchains(
     settings = "//:settings.tf",
     # BEGIN OPTIONAL attrs
     repository = {
-        "version": "0.13.6",
-        "sha256": "55f2db00b05675026be9c898bdd3e8230ff0c5c78dd12d743ca38032092abfc9",
+        "version": "0.14.0",
+        "sha256": "07fd7173f7a360ad5e4d5ea5035670cf426cf7a08d0486bc0fe7c9d76b447722",
     },  # https://releases.hashicorp.com/terraform/
     # Optional parameters to command execute:(https://docs.bazel.build/versions/master/skylark/lib/repository_ctx.html#execute).
     quiet = True,
@@ -41,7 +41,6 @@ tf_toolchains(
     tf_verify_plugins = True,
     tf_log = "NONE",
     # END OPTIONS attrs
-
 )
 ```
 

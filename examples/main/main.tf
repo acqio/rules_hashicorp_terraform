@@ -2,12 +2,6 @@ variable azurerm_credential {
   type = object({})
 }
 
-terraform {
-  backend "local" {
-    path = "/root/terraform.tfstate"
-  }
-}
-
 variable foo {
   type = string
 }
@@ -43,12 +37,4 @@ output foo {
 
 output submodule {
   value = module.submodule.return
-}
-
-output example {
-  value = path.cwd
-}
-
-output example2 {
-  value = path.root
 }
