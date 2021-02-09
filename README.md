@@ -22,21 +22,25 @@ load("@rules_hashicorp_terraform//terraform:repositories.bzl", terraform_reposit
 
 terraform_repositories()
 
-load("@rules_hashicorp_terraform//terraform:defs.bzl", "tf_dependencies", "tf_toolchains")
+load("@rules_hashicorp_terraform//terraform:defs.bzl", "tf_dependencies", "tf_configure")
 
 tf_dependencies()
 
-tf_toolchains(
+tf_configure(
     settings = "//:settings.tf",
     # BEGIN OPTIONAL attrs
+    # Optional parameters to define the version of the terraform binary to be used.
+    # The version and sha256 keys are mandatory.
     repository = {
         "version": "0.14.0",
         "sha256": "07fd7173f7a360ad5e4d5ea5035670cf426cf7a08d0486bc0fe7c9d76b447722",
-    },  # https://releases.hashicorp.com/terraform/
-    # Optional parameters to command execute:(https://docs.bazel.build/versions/master/skylark/lib/repository_ctx.html#execute).
+    },
+    # Optional parameters to command execute
+    # https://docs.bazel.build/versions/master/skylark/lib/repository_ctx.html#execute).
     quiet = True,
     timeout = 600,
-    # Optional parameters to terraform init: https://www.terraform.io/docs/cli/commands/init.htm
+    # Optional parameters to terraform init.
+    # https://www.terraform.io/docs/cli/commands/init.htm
     tf_upgrade = True,
     tf_verify_plugins = True,
     tf_log = "NONE",
@@ -54,7 +58,7 @@ E.g.
 ```hcl
 terraform {
     # https://www.terraform.io/docs/language/expressions/version-constraints.html#version-constraint-syntax
-    required_version = ">= 0.13.0"
+    required_version = ">= 0.14.0"
     # https://www.terraform.io/docs/language/providers/requirements.html#requiring-providers
     required_providers {
         null = {

@@ -187,7 +187,7 @@ def _impl(rctx):
     _get_jq(rctx, jq_toolchain)
     _tf_init(rctx, settings_path, settings_symlink_path, tf_providers_dir, tf_tool_path, tf_rc_filename)
 
-tf_configure = repository_rule(
+_tf_configure = repository_rule(
     implementation = _impl,
     attrs = {
         "settings": attr.label(
@@ -223,8 +223,8 @@ def setup_toolchains():
             toolchain["terraform"]["toolchain_name"],
         ))
 
-def tf_toolchains(**kwargs):
-    tf_configure(
+def tf_configure(**kwargs):
+    _tf_configure(
         name = "terraform",
         **kwargs
     )

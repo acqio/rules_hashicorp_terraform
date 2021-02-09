@@ -23,11 +23,11 @@ load("@bazel_gazelle//:deps.bzl", "gazelle_dependencies")
 
 gazelle_dependencies()
 
-load("//terraform:defs.bzl", "tf_dependencies", "tf_toolchains")
+load("//terraform:defs.bzl", "tf_dependencies", "tf_configure")
 
 tf_dependencies()
 
-tf_toolchains(
+tf_configure(
     quiet = False,
     settings = "//:settings.tf",
 )
